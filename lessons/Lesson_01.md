@@ -1,6 +1,6 @@
 # Lesson 01 — Softmax, Cross-Entropy and Temperature: the Gradient Engine Behind Classifiers, CLIP, CoOp and Attention
 
-> Stage 0 · Prereq for: Fast R-CNN (R2), Transformer (R5), CoOp (R10) and its descendants (R11–R14), YOLO-World (R27), plus every classifier in the folder.
+> Stage 0 · Prereq for: Fast R-CNN (R2), Transformer (R5), CoOp (R7) and its descendants (R8–R11), YOLO-World (R24), plus every classifier in the folder.
 > Back to [README](../README.md) · Roadmap: [01](../01_Learning_Roadmap.md) · Exercise: [Exercise 01](../exercises/Exercise_01.md) · Status: [PROGRESS](../PROGRESS.md)
 >
 > **Labels:** 🟥 Essential · 🟨 Helpful · 🟦 Advanced (optional on first pass)
@@ -20,12 +20,12 @@ By the end you should be able to, **without notes**:
 
 Count the papers in your folder that end in "softmax over scores, trained with cross-entropy":
 
-- **Classification heads:** Fast R-CNN ($K{+}1$-way softmax), Transformer (vocabulary softmax), ViT/DeiT backbones of Vim/VMamba/MambaVision.
-- **CLIP-style similarity classifiers:** CoOp Eq. 3, ATPrompt Eq. 1, SPG, TP-CLIP, CLIP-RC, UniDetector's region classifier, YOLO-World's text-contrastive head, ML-Decoder zero-shot.
+- **Classification heads:** Fast R-CNN ($K{+}1$-way softmax), Transformer (vocabulary softmax), ViT/DeiT-style backbones such as MambaVision.
+- **CLIP-style similarity classifiers:** CoOp Eq. 3, ATPrompt Eq. 1, SPG, TP-CLIP, CLIP-RC, UniDetector's region classifier, YOLO-World's text-contrastive head.
 - **Contrastive objectives:** CLIP/InfoNCE, BLIP's ITC. These are softmax-CE where the "classes" are the other items in the batch.
 - **Attention itself:** every row of $\mathrm{softmax}(QK^\top/\sqrt{d_k})$.
 
-That is more than 25 of 40 papers. If $p-y$, temperature and gradient-through-frozen-modules are not fully under control, every one of those papers will rest on a guess. This lesson is therefore a **genuine prerequisite**, not a warm-up.
+That is more than 20 of the 33 papers in scope. If $p-y$, temperature and gradient-through-frozen-modules are not fully under control, every one of those papers will rest on a guess. This lesson is therefore a **genuine prerequisite**, not a warm-up.
 
 ## 3. Prerequisites
 
@@ -93,7 +93,7 @@ In vector form, $\nabla_z L = p - y$. In a batch with mean reduction, each row i
 
 ### 5.5 Sigmoid + BCE: the multi-label cousin 🟥
 
-For **independent** binary decisions (multi-label: YOLOv3 classes, Query2Label, C-Tran, ML-Decoder):
+For **independent** binary decisions (multi-label: YOLOv3 classes, per-class region scores in dense detectors):
 $$q=\sigma(z)=\frac1{1+e^{-z}},\qquad L=-[y\log q+(1-y)\log(1-q)],\qquad \frac{\partial L}{\partial z}=q-y.$$
 It has the same "prediction minus target" form, but each class is separate and **the classes don't compete**. Choosing softmax vs. sigmoid is a modelling decision: *are the labels mutually exclusive?*
 
@@ -170,7 +170,7 @@ If you apply `softmax` and then call `F.cross_entropy` (which applies log-softma
 ## 7. Connection to machine learning and deep learning
 
 - **MLE:** every CE-trained network is a conditional likelihood model $p_\theta(y\mid x)$. MSE is the Gaussian analogue (Lesson 04).
-- **Calibration:** softmax outputs are *not* automatically calibrated probabilities. Temperature scaling after training is the classic fix. UniDetector's prior calibration (R26) and your CEC presentation's entropy calibration both work on this layer.
+- **Calibration:** softmax outputs are *not* automatically calibrated probabilities. Temperature scaling after training is the classic fix. UniDetector's prior calibration (R23) and your CEC presentation's entropy calibration both work on this layer.
 - **Label smoothing** (Transformer §5.4, YOLOv4) replaces $y$ with $(1-\epsilon)y+\epsilon/K$, so the gradient becomes $p-y_{\text{smooth}}$ and logits stop growing without bound.
 - **Entropy** $H(p)=-\sum p_i\log p_i$ (uncertainty) is the quantity active-learning methods such as CEC rank samples by.
 
@@ -180,11 +180,10 @@ If you apply `softmax` and then call `F.cross_entropy` (which applies log-softma
 |---|---|---|
 | R2 Fast R-CNN | $L_{cls}=-\log p_u$ over $K{+}1$ classes (incl. background) | Why a background class? How is it sampled (25% fg)? |
 | R5 Transformer | attention softmax; output softmax; label smoothing $\epsilon=0.1$ | Where is $\sqrt{d_k}$, and what would happen without it? |
-| R10 CoOp | Eq. 3; gradient through the frozen $g$ into $[V]_m$ | Which parameters are trainable? Count them (16×512). |
-| R12 ATPrompt | Eq. 1 identical; attribute tokens inside $t_i$ | Which tokens are learnable vs. fixed? |
-| R27 YOLO-World | $s_{k,j}=\alpha\,\hat e_k^\top\hat w_j+\beta$ | Why do they say L2-norm + affine are "important for stabilizing"? (Answer: §5.7.) |
+| R7 CoOp | Eq. 3; gradient through the frozen $g$ into $[V]_m$ | Which parameters are trainable? Count them (16×512). |
+| R9 ATPrompt | Eq. 1 identical; attribute tokens inside $t_i$ | Which tokens are learnable vs. fixed? |
+| R24 YOLO-World | $s_{k,j}=\alpha\,\hat e_k^\top\hat w_j+\beta$ | Why do they say L2-norm + affine are "important for stabilizing"? (Answer: §5.7.) |
 | R4 YOLOv3 | switches to independent logistic (BCE) classes | §5.5: labels like "Woman" and "Person" overlap. |
-| R7 Query2Label | per-class binary classifiers + ASL loss | §5.5 plus the imbalance across many negatives |
 
 ## 9. Implementation (short demo; full assignment in [Exercise 01](../exercises/Exercise_01.md))
 

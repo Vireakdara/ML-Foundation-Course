@@ -14,7 +14,7 @@
 | Current stage | **Stage 0: Foundations** (pre-diagnostic) |
 | Last session | 2026-10-24: course set up, papers inventoried, roadmap v1, Lesson 01 and Exercise 01 written |
 | **Next recommended activity** | **Answer the [Diagnostic (Exercise 00)](exercises/Exercise_00_Diagnostic.md)**, then study [Lesson 01](lessons/Lesson_01.md) and do [Exercise 01](exercises/Exercise_01.md) (compressed if the diagnostic shows mastery) |
-| Pending decisions | D-0 (what GSARP is and whether it's active), D-0b (priorities), D-0c (time/GPU) |
+| Pending decisions | D-0a (priorities), D-0b (time/GPU) |
 
 ## 2. Known information (from files, not from assessment)
 
@@ -69,7 +69,7 @@
 
 | R# | Paper | Status | Comprehension | Notes |
 |---|---|---|---|---|
-| all 40 | see [00_Paper_Inventory](00_Paper_Inventory.md) | Not started (course reading) | — | Inventory is at P1/P2 inspection, *not* a study of the papers |
+| all 33 | see [00_Paper_Inventory](00_Paper_Inventory.md) | Not started (course reading) | — | Inventory is at P1/P2 inspection, *not* a study of the papers |
 
 ## 9. Current weaknesses
 
@@ -77,7 +77,6 @@
 
 ## 10. Questions to revisit
 
-- Is GSARP an active project? (Affects whether Stage 6 moves earlier.)
 - Do you still want OW-OVD and CEC (active learning for VLMs) in the course? Their PDFs are not in the folder.
 - Add the missing essential external papers (CLIP, ViT, DETR, ResNet) to the folder before Stages 3–4.
 
@@ -86,3 +85,4 @@
 | Date | Change | Reason |
 |---|---|---|
 | 2026-10-24 | Roadmap v1 created | Initial setup |
+| 2026-10-24 | Roadmap v2: scope narrowed to 33 papers; papers renumbered R1–R33, lessons L01–L20 | Your decision to narrow the course scope |

@@ -119,7 +119,7 @@ Verified on torch 2.4.1 and 2.7.1 (CPU). Small differences on other versions or 
 - Evaluating with gradients on (wasteful). Wrap evaluation in `torch.no_grad()`.
 
 ## What this teaches
-CoOp's whole mechanism (learn a few input vectors, keep the encoder frozen, train with temperature-scaled cosine CE) fits in about 30 lines. Its success depends on things the paper treats as details: the temperature, the number of shots and the risk of overfitting. Keep this in mind when you read R10–R13.
+CoOp's whole mechanism (learn a few input vectors, keep the encoder frozen, train with temperature-scaled cosine CE) fits in about 30 lines. Its success depends on things the paper treats as details: the temperature, the number of shots and the risk of overfitting. Keep this in mind when you read R7–R10.
 
 ## Submission
 Put your code and printed outputs in `exercises/Exercise_01_Answers.md` (or paste them in chat), together with the written answers to D(a), D(b) and B.

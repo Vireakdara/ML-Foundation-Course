@@ -17,10 +17,9 @@ Each question is labelled **[K]** (conceptual familiarity: can you explain it?) 
 
 ## Part 0: Context (no right answers)
 
-- **D-0.** What is the `GSARP` folder (Mamba + multi-label classification papers, Jan 2026)? A current project, a course, a proposal? Is it active?
-- **D-0b.** Rank your next 12-month priorities: (a) open-vocabulary detection, (b) VLM prompt learning / adaptation, (c) real-time detector design, (d) Mamba/SSM backbones, (e) multi-label classification, (f) PhD applications (and when), (g) other: ___.
-- **D-0c.** Hours per week you can realistically commit? GPU access (model, VRAM)?
-- **D-0d.** Your master's thesis topic in one sentence, and the paper(s) it was based on.
+- **D-0a.** Rank your next 12-month priorities: (a) open-vocabulary detection, (b) VLM prompt learning / adaptation, (c) real-time detector design, (d) efficient backbones (SSM/hybrid, sparse attention), (e) PhD applications (and when), (f) other: ___.
+- **D-0b.** Hours per week you can realistically commit? GPU access (model, VRAM)?
+- **D-0c.** Your master's thesis topic in one sentence, and the paper(s) it was based on.
 
 ## Part A: Mathematics
 
@@ -40,7 +39,7 @@ Each question is labelled **[K]** (conceptual familiarity: can you explain it?) 
 ## Part B: Machine learning
 
 - **B1 [K].** Why do we need a validation set *and* a test set? What exactly goes wrong if you pick your checkpoint on the test set?
-- **B2 [A] (critique).** Read **only §3.2 and §3.3** of [HIR (R38)](<../../Human_Interaction_Recognition_in_Surveillance_Vide.pdf>) (about 1 page). The authors split 550 videos, pooled from four cameras of 13 participants, 80/20 at random. (i) Describe a concrete way information could leak from train to test. (ii) Propose a split that tests generalisation to new people. (iii) Would you expect the 95.45% accuracy to go up or down under your split, and why?
+- **B2 [A] (critique).** Read **only §3.2 and §3.3** of [HIR (R31)](<../../Human_Interaction_Recognition_in_Surveillance_Vide.pdf>) (about 1 page). The authors split 550 videos, pooled from four cameras of 13 participants, 80/20 at random. (i) Describe a concrete way information could leak from train to test. (ii) Propose a split that tests generalisation to new people. (iii) Would you expect the 95.45% accuracy to go up or down under your split, and why?
 - **B3 [K].** Explain bias vs. variance using the base-to-novel result of prompt learning (CoOp improves base classes but can hurt novel ones).
 - **B4 [A].** A detector produces, for one class, detections sorted by score with TP/FP labels: `TP, TP, FP, TP, FP` and there are 4 ground-truth objects. Compute precision and recall after each detection, and the (non-interpolated) AP as the area under the step PR curve.
 - **B5 [K].** Multi-class vs. multi-label classification: which output activation and loss for each? Why did YOLOv3 switch to independent logistic classifiers?
@@ -60,7 +59,7 @@ Each question is labelled **[K]** (conceptual familiarity: can you explain it?) 
 ## Part D: Architectures (paper-specific prerequisites)
 
 - **D1 [A].** Write the scaled dot-product attention formula. Name each symbol and its shape for self-attention over $N$ tokens of width $d$.
-- **D2 [K].** Self-attention vs. cross-attention: what plays Q, K and V in each? In Query2Label / DETR, where do the queries come from?
+- **D2 [K].** Self-attention vs. cross-attention: what plays Q, K and V in each? In DETR / RT-DETR, where do the queries come from?
 - **D3 [K].** How does CLIP perform zero-shot classification? Write the probability $p(y=i\mid x)$ and explain the role of temperature.
 - **D4 [K].** Bi-encoder vs. cross-encoder: which is CLIP, which is BLIP's ITM head, and why does it matter for YOLO-World's "offline vocabulary"?
 - **D5 [A].** Compute IoU for boxes A $=(0,0,4,4)$ and B $=(2,2,6,6)$ in $(x_1,y_1,x_2,y_2)$ format.
@@ -72,7 +71,7 @@ Each question is labelled **[K]** (conceptual familiarity: can you explain it?) 
 ## Part E: Research reasoning
 
 - **E1.** Pick one paper you presented (UniDetector, RT-DETR, ATPrompt, MP5, OW-OVD or CEC). In ≤ 150 words: what is its central insight, what is its weakest experimental point, and what would you test next?
-- **E2.** MambaOut argues "SSMs suit long-sequence and causal tasks; ImageNet classification is neither." What experiment would *falsify* that hypothesis?
+- **E2.** MambaVision (R26) claims that putting self-attention blocks in the final stages improves long-range spatial modelling. What experiment would *falsify* that claim, and what would you hold fixed?
 
 ## Part F: Implementation (you may run code)
 
