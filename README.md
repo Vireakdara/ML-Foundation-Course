@@ -60,7 +60,7 @@ Start Claude Code in `E:\Papers` and say something like *"resume my ML course"*.
 
 1. Read this `README.md` and [PROGRESS.md](PROGRESS.md).
 2. Review [01_Learning_Roadmap.md](01_Learning_Roadmap.md) and the current lesson/exercise files.
-3. Check `E:\Papers` (including subfolders, except `GSARP\`, which is out of scope) for new PDFs and add them to [00_Paper_Inventory.md](00_Paper_Inventory.md).
+3. Check `E:\Papers` (including subfolders) for new PDFs and add them to [00_Paper_Inventory.md](00_Paper_Inventory.md).
 4. Continue from **"Next recommended activity"** in PROGRESS.
 5. Not restart from the beginning unless you ask, or PROGRESS shows a prerequisite must be revisited.
 
